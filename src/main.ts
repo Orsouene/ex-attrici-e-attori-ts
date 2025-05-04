@@ -92,3 +92,20 @@ async function getAllActresses(): Promise<Actress[]> {
   return []
 }
 getAllActresses().then(result=>console.log(result)).catch(error=>console.log(error))
+
+
+//! milestone 5
+async function getActresses(ActressIds: number[]): Promise<(Actress | null)[]> {
+  try {
+    const response = ActressIds.map((id) => getActress(id));
+    const actress = await Promise.all(response);
+    return actress;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log("errore nel recupero dei dati", error);
+    } else {
+      console.log("unknown error");
+    }
+    return [];
+  }
+}
